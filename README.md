@@ -255,11 +255,11 @@ CMake minimum required(VERSION 3.17)
 #Future Direction: How to Bridge the Gap?
 
 A follow-up of the work is how to overcome the root causes? In other words, how to build a new generalized vector database in the future that achieves comparable performance to the state-of-the-art specialized vector database? We show a few actionable guidelines and we are currently working on it.
-* Step#1: Start from PostgreSQL-based PASE (or other relational databases). In order to overcome RC#2, there are different solutions. The first solution is to start from PASE, which is based on PostgreSQL. But we need to optimize HNSW by embedding the actual vector data to the index, which can avoid unnecessary random accesses to fetch vector data during graph traversal. The second solution is to add a memory-optimized table in PostgreSQL following GaussDB [47] or use a main-memory relational database (e.g., MonetDB [65]) to directly access tuples (vectors) in memory to reduce the overhead of tuple accesses.
+* Step#1: Start from PostgreSQL-based PASE (or other relational databases). In order to overcome RC#2, there are different solutions. The first solution is to start from PASE, which is based on PostgreSQL. But we need to optimize HNSW by embedding the actual vector data to the index, which can avoid unnecessary random accesses to fetch vector data during graph traversal. The second solution is to add a memory-optimized table in PostgreSQL following GaussDB or use a main-memory relational database (e.g., MonetDB) to directly access tuples (vectors) in memory to reduce the overhead of tuple accesses.
 * Step#2: Enable SGEMM. The system shall enable SGEMM to bypass the overhead of RC#1 and significantly improve the performance of index construction.
 * Step#3: Optimized top-k computation. The system shall use the proper heap size (i.e., k) for top-k computation to overcome the overhead introduced by RC#6.
-* Step#4: Parallelism. The system shall efficiently sup- port both index construction and index search with multiple threads. This requires the implementation of the operator-level (e.g., vector search) parallelism in relational databases, which can bridge the performance gap due to RC#3.
-* Step#5: More optimized implementations. The system needs to reduce space amplification, support optimized K- means and precomputated table as mentioned in RC#4, RC#5, and RC#7.
+* Step#4: Parallelism. The system shall efficiently support both index construction and index search with multiple threads. This requires the implementation of the operator-level (e.g., vector search) parallelism in relational databases, which can bridge the performance gap due to RC#3.
+* Step#5: More optimized implementations. The system needs to reduce space amplification, support optimized K-means and precomputated table as mentioned in RC#4, RC#5, and RC#7.
 
 Overall Message. 
 
