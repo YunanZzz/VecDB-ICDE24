@@ -236,7 +236,7 @@ CMake minimum required(VERSION 3.17)
 
 
 
-## We summarize the root causes of the performance gap as follows and discuss how to bridge the gap:
+## We summarize the root causes of the performance gap as follows:
 
 * **RC#1: SGEMM Optimization.**
 
