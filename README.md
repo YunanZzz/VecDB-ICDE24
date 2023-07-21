@@ -236,7 +236,7 @@ CMake minimum required(VERSION 3.17)
 
 
 
-##We summarize the root causes of the performance gap as follows and discuss how to bridge the gap:
+## We summarize the root causes of the performance gap as follows and discuss how to bridge the gap:
 
 * **RC#1: SGEMM Optimization.**
 
@@ -252,7 +252,7 @@ CMake minimum required(VERSION 3.17)
 
 * **RC#7: Precomputed Table Implementation.**
 
-##Future Direction: How to Bridge the Gap?
+## Future Direction: How to Bridge the Gap?
 
 A follow-up of the work is how to overcome the root causes? In other words, how to build a new generalized vector database in the future that achieves comparable performance to the state-of-the-art specialized vector database? We show a few actionable guidelines and we are currently working on it.
 * Step#1: Start from PostgreSQL-based PASE (or other relational databases). In order to overcome RC#2, there are different solutions. The first solution is to start from PASE, which is based on PostgreSQL. But we need to optimize HNSW by embedding the actual vector data to the index, which can avoid unnecessary random accesses to fetch vector data during graph traversal. The second solution is to add a memory-optimized table in PostgreSQL following GaussDB or use a main-memory relational database (e.g., MonetDB) to directly access tuples (vectors) in memory to reduce the overhead of tuple accesses.
@@ -261,6 +261,6 @@ A follow-up of the work is how to overcome the root causes? In other words, how 
 * Step#4: Parallelism. The system shall efficiently support both index construction and index search with multiple threads. This requires the implementation of the operator-level (e.g., vector search) parallelism in relational databases, which can bridge the performance gap due to RC#3.
 * Step#5: More optimized implementations. The system needs to reduce space amplification, support optimized K-means and precomputated table as mentioned in RC#4, RC#5, and RC#7.
 
-##Overall Message. 
+## Overall Message. 
 
 The overall conclusion of the work is that, with a careful implementation, it is feasible to support vector data management inside a relational database that achieves comparable performance to the state-of-the-art specialized vector database. We do not see a fundamental limitation in using a relational database to support efficient vector data management. In this way, we can use a single relational database to support more applications that involve tables and vectors. The paper lays out seven useful root causes with actionable guidelines to build a generalized vector database step by step to achieve both high performance and generality in the future.
